@@ -43,67 +43,54 @@
               </div>
             <button type="submit" class="btn btn-default">Sign in</button>
           </form>
-          </div>
+          </div> 
         </nav>
         <div class="container">
           <div class="jumbotron">
           <h1>Welcome to RaspiCloud.net!</h1>
-          <p>Place where you can create and display dashboard for your IoT application</p>
+          <p>Create and display dashboard for your IoT application</p>
           <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-        </div>
-          <div class="widget-place">
-           <div class="row">
-            <div class="col-sm-6">
-              
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Set up new controller</h3>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="inputTitle" class="col-sm-2 control-label">Name of controller</label>
-                    <input type="text" class="form-control" id="inputTitle" placeholder="Name goes here">
-                  </div>
-
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> Connect straight away
-                    </label>
-                  </div>
-
-                  <button class="btn btn-default" type="submit">Submit</button>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-sm-6">
-              
-                <div class="panel panel-default">
-                  <div class="panel-body">
-                    <div class="panel-heading">
-                      <h3 class="panel-title">Set up new controller</h3>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="inputTitle" class="col-sm-2 control-label">Name of controller</label>
-                      <input type="text" class="form-control" id="inputTitle" placeholder="Name goes here">
-                    </div>
-
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> Connect straight away
-                      </label>
-                    </div>
-
-                    <button class="btn btn-default" type="submit">Submit</button>
-                  </div>
-                </div>            
-
-              </div>
-            </div>
           </div>
+          
+
+          <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+           
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">New Widget <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" id='newPieChartWidget'>Pie Chart</a></li>
+                    <li><a href="#" id='newTextWidget'>Text</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+
+              
+            
+          </div><!-- /.container-fluid -->
+        </nav>
+        
+        <div class="widget-place">
         </div>
+        
+      </div>
         
 
         
@@ -118,6 +105,7 @@
         <script src="js/widgets/widget.js"></script>
         <script src="js/widgets/pieChartWidget.js"></script>
         <script src="js/widgets/displayTextWidget.js"></script>
+        <script src="js/row.js"></script>
         <script src="js/app.js"></script>
         <!-- <script src="js/main.js"></script> -->
 

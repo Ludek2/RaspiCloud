@@ -1,27 +1,43 @@
 var Widget = Class.extend({
+
+	title: null,
+
 	init: function (opts) {
+		opts = opts || {};
+		this.id = opts.id;
+		this.title = opts.title || null;
+		this.size = opts.size || null;
 
 	},
-	render: function (opts) {
+	render: function () {
+		var html = "";
 
-		this.opts = opts;
-		
+		html += '<div class="panel panel-primary" id='+this.id+'>';
+		html += '  <div class="panel-heading"><h3 class="panel-title" id="widget'+this.id+'Title">'+this.title+'</h3>';
+		html += this.appendSettings();
+		html += '</div>';
+		html += '  <div class="panel-body">';
 
-		$(".widget-place").append('<div class="panel panel-default">');
+		html += this.appendBody();
 
-		$(".widget-place").append('<div class="panel-body">');
-
-
-		$(".widget-place").append('<div class="panel-heading"><h3 class="panel-title">'+opts.title+'</h3></div>');
-
-		this.appendBody();
-
-		$(".widget-place").append('</div>');
-		$(".widget-place").append('</div>');
+		html += '  </div>';
+		html += '</div>';
 	
+		return html;
 	},
 
 	appendBody: function () {
 		console.warn('append body method has not been implemented in sub class');
+	},
+
+	appendSettings: function(){
+		console.warn('append settings method has not been implemented in sub class');
+	},
+
+	getTitle: function () {
+		return this.title;
+	},
+	setTitle: function (title) {
+		this.title = title;
 	}
 });
