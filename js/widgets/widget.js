@@ -12,7 +12,7 @@ var Widget = Class.extend({
 	render: function () {
 		var html = "";
 
-		html += '<div class="panel panel-primary" id='+this.id+'>';
+		html += '<div class="panel panel-primary" id=widget'+this.id+'Panel>';
 		html += '  <div class="panel-heading"><h3 class="panel-title" id="widget'+this.id+'Title">'+this.title+'</h3>';
 		html += this.appendSettings();
 		html += '</div>';

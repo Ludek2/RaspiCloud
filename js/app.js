@@ -142,20 +142,37 @@ function findSourceWidgetId(inputString){
   	return sourceWidgetId;
 }
 
+function renderUpdatedWidget(updateWidgetId){
+	var html = widgets[updateWidgetId].render();
+    var widgetPanel = document.getElementById('widget'+updateWidgetId+'Panel');
+    widgetPanel.parentNode.innerHTML = html;
+}
+
+function changeWidgetTitle(form){
+	var newTitle = form.title.value;
+	var sourceWidgetId = form.widgetId.value;
+    widgets[sourceWidgetId].title=newTitle;
+    renderUpdatedWidget(sourceWidgetId);
+}
+
+
+
 document.addEventListener('click', function (e) {
   var target = e.target;
-  console.log(target.id);
   if (target.tagName && target.tagName.toLowerCase() == "a") {
   	if(target.id.includes("changeTitle")){
   		var sourceWidgetId = findSourceWidgetId(target.id);
 
   		var title = document.getElementById("widget"+sourceWidgetId+"Title");
   		
-
+  		var titleStr= widgets[sourceWidgetId].title;
   		var span = document.createElement('h1');
 	    span.innerHTML =  '<div class="form-group">' +
-	    				    '<input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">' +
-						    '<span class="input-group-btn"><button type="button" class="btn btn-default btn-sm">Right</button></span>'+
+	    					'<FORM NAME="changeTitle">' +
+	    				    '<input name="title" class="form-control form-control-sm" type="text" placeholder="'+titleStr+'">' +
+						    '<button type="button" class="btn btn-default btn-sm" Value="click" onClick="changeWidgetTitle(this.form)">Confirm</button>'+
+						   '<input type="hidden" name="widgetId" value="'+sourceWidgetId+'">'+
+						   '</form>' +
 						   '</div>';
 	    span.className = 'asterisk';
 
