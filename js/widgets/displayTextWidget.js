@@ -9,8 +9,13 @@ var DisplayTextWidget = Widget.extend({
 	},
 
 	appendBody: function () {
+		var columnNames = ['Date','Time','Event'];
+		var data = [['10.11','12:33','Device powered up'],
+					['12.12','10:09','Device Fault'],
+					['12.12','10.10','Device reboot']];
 		return textWidgetBodyTemplate({
-			text: this.text
+			columnNames: columnNames,
+			data: data
 		})
 	},
 

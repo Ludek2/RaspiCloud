@@ -6,8 +6,9 @@ var widgets = [];
 var rows = [];
 var lastRowWidgetSizeSum = 0;
 //var newWidgetDefaultSize = 4;
-var pieChartWidgetDefaultSize =4;
-var textWidgetDefaultSize =2;
+var pieChartWidgetDefaultSize =6;
+var textWidgetDefaultSize =6;
+var controlWidgetDefaultSize =6;
 
 function renderWidgets(){
 	var sumTemp = 0;
@@ -79,6 +80,14 @@ function createDefaultWidget(type){
 				size: textWidgetDefaultSize
             });
 			break;
+		case  "control":
+			widgetSize = controlWidgetDefaultSize;
+			var newWidget = new ControlWidget({
+				id: ++widgetId,
+				title: 'Text Widget: '+widgetId,
+				size: widgetSize
+            });
+			break;
 	}
 	widgets[widgetId]=newWidget;
 }
@@ -86,6 +95,7 @@ function createDefaultWidget(type){
 createDefaultWidget("pieChart");
 createDefaultWidget("pieChart");
 createDefaultWidget("text");
+createDefaultWidget("control");
 
 renderWidgets();
 
@@ -108,6 +118,14 @@ function addWidget(type){
 				id: ++widgetId,
 				title: 'Text Widget: '+widgetId,
 				text: 'This is the text contents!!!! :-)',
+				size: widgetSize
+            });
+			break;
+		case  "control":
+			widgetSize = controlWidgetDefaultSize;
+			var newWidget = new ControlWidget({
+				id: ++widgetId,
+				title: 'Text Widget: '+widgetId,
 				size: widgetSize
             });
 			break;
@@ -141,6 +159,10 @@ document.getElementById("newPieChartWidget").addEventListener("click", function(
 
 document.getElementById("newTextWidget").addEventListener("click", function(){
     	addWidget("text");
+});
+
+document.getElementById("newControlWidget").addEventListener("click", function(){
+    	addWidget("control");
 });
 
 function findSourceWidgetId(inputString){
