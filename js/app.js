@@ -24,9 +24,12 @@ function renderWidgets(){
 				widgetsIntoRow.push(widgets[i2]);
 				lastWidgetRendered = i2;
 			}
+			var newRowId;
+			if(rows.length==null)newRowId=0;
+			else newRowId=rows.length;
 			var row = new Row({
 				widgets: widgetsIntoRow,
-				id: rows.length
+				id: newRowId
 			});
 			rows.push(row);
 			row.render();
@@ -41,10 +44,15 @@ function renderWidgets(){
 			lastRowWidgetSizeSum+=widgets[i].size;
 			widgetsIntoRow.push(widgets[i]);
 		}
+
+		var newRowId;
+		if(rows.length==null)newRowId=0;
+		else newRowId=rows.length;
 		var row = new Row({
 			widgets: widgetsIntoRow,
-			id: rows.length
+			id: newRowId
 		});
+		console.log(newRowId);
 		rows.push(row);
 		row.render();
 	}
@@ -77,7 +85,6 @@ function createDefaultWidget(type){
 
 createDefaultWidget("pieChart");
 createDefaultWidget("pieChart");
-createDefaultWidget("text");
 createDefaultWidget("text");
 
 renderWidgets();
@@ -158,26 +165,21 @@ function changeWidgetTitle(form){
 
 
 document.addEventListener('click', function (e) {
+  var changeTitleTemplate = _.template($('#changeTitleTemplate').html());
   var target = e.target;
   if (target.tagName && target.tagName.toLowerCase() == "a") {
   	if(target.id.includes("changeTitle")){
   		var sourceWidgetId = findSourceWidgetId(target.id);
-
   		var title = document.getElementById("widget"+sourceWidgetId+"Title");
-  		
   		var titleStr= widgets[sourceWidgetId].title;
-  		var span = document.createElement('h1');
-	    span.innerHTML =  '<div class="form-group">' +
-	    					'<FORM NAME="changeTitle">' +
-	    				    '<input name="title" class="form-control form-control-sm" type="text" placeholder="'+titleStr+'">' +
-						    '<button type="button" class="btn btn-default btn-sm" Value="click" onClick="changeWidgetTitle(this.form)">Confirm</button>'+
-						   '<input type="hidden" name="widgetId" value="'+sourceWidgetId+'">'+
-						   '</form>' +
-						   '</div>';
-	    span.className = 'asterisk';
-
-  		title.parentNode.insertBefore(span, title);
-  		title.remove(title.selectedIndex);
+  		
+  		var changeTitleHTML = changeTitleTemplate({
+  			titleStr:  titleStr,
+  			sourceWidgetId: sourceWidgetId
+  		});
+		title.innerHTML = changeTitleHTML;
   	}
   }
 });
+
+       

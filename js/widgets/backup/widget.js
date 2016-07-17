@@ -1,5 +1,3 @@
-var widgetTemplate =_.template($('#widgetTemplate').html());
-
 var Widget = Class.extend({
 
 	title: null,
@@ -12,13 +10,20 @@ var Widget = Class.extend({
 
 	},
 	render: function () {
-		
-		return widgetTemplate({
-			widgetId: this.id,
-			widgetTitle: this.title,
-			widgetSettings: this.appendSettings(), 
-			widgetBody: this.appendBody()
-		});
+		var html = "";
+
+		html += '<div class="panel panel-primary" id=widget'+this.id+'Panel>';
+		html += '  <div class="panel-heading"><h3 class="panel-title" id="widget'+this.id+'Title">'+this.title+'</h3>';
+		html += this.appendSettings();
+		html += '</div>';
+		html += '  <div class="panel-body">';
+
+		html += this.appendBody();
+
+		html += '  </div>';
+		html += '</div>';
+	
+		return html;
 	},
 
 	appendBody: function () {
