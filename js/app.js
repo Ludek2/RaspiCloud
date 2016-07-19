@@ -53,7 +53,6 @@ function renderWidgets(){
 			widgets: widgetsIntoRow,
 			id: newRowId
 		});
-		console.log(newRowId);
 		rows.push(row);
 		row.render();
 	}
@@ -63,6 +62,15 @@ function renderWidgets(){
 //for testing only
 function createDefaultWidget(type){
 	switch(type){
+		case "chart":
+			widgetSize = pieChartWidgetDefaultSize;
+			var newWidget = new ChartWidget({
+				id: ++widgetId,
+				title: 'Chart: '+widgetId,
+				size: widgetSize
+			});
+			google.setOnLoadCallback(newWidget.loadEditor);
+			break;
 		case "pieChart":
 			//$(".widget-place").append("pieChart");
 			var newWidget = new PieChartWidget({
@@ -92,10 +100,12 @@ function createDefaultWidget(type){
 	widgets[widgetId]=newWidget;
 }
 
-createDefaultWidget("pieChart");
-createDefaultWidget("pieChart");
+
+//createDefaultWidget("chart");
+//createDefaultWidget("pieChart");
 createDefaultWidget("text");
-createDefaultWidget("control");
+//createDefaultWidget("control");
+
 
 renderWidgets();
 
@@ -104,6 +114,14 @@ function addWidget(type){
 	//create object and add to widgets array
 	var widgetSize;
 	switch(type){
+		case "chart":
+			widgetSize = pieChartWidgetDefaultSize;
+			var newWidget = new ChartWidget({
+				id: ++widgetId,
+				title: 'Chart: '+widgetId,
+				size: widgetSize
+			});
+			break;
 		case "pieChart":
 			widgetSize = pieChartWidgetDefaultSize;
 			var newWidget = new PieChartWidget({
@@ -135,8 +153,8 @@ function addWidget(type){
 	//show on the page
 	var lastWidgetId= widgetId;
     var lastRowId= rows.length-1;
-
-	//console.log("before "+rows[lastRowId].getWidgetsSizeSum());
+    console.log(rows[lastRowId]);	
+    //console.log("before "+rows[lastRowId].getWidgetsSizeSum());
     if (12-rows[lastRowId].getWidgetsSizeSum() >= widgetSize){
     	rows[lastRowId].widgets.push(widgets[lastWidgetId]);
     	rows[lastRowId].renderAgain();  
@@ -150,11 +168,17 @@ function addWidget(type){
 		lastRowId= rows.length-1;
 		rows[lastRowId].render();	
     }
+	
     //console.log("after "+rows[lastRowId].getWidgetsSizeSum());
+
+    if(type=="chart"){
+    	newWidget.loadEditor();
+    }
+	
 }
 
-document.getElementById("newPieChartWidget").addEventListener("click", function(){
-    	addWidget("pieChart");
+document.getElementById("newChartWidget").addEventListener("click", function(){
+    	addWidget("chart");
 });
 
 document.getElementById("newTextWidget").addEventListener("click", function(){
@@ -182,15 +206,17 @@ function changeWidgetTitle(form){
 	var sourceWidgetId = form.widgetId.value;
     widgets[sourceWidgetId].title=newTitle;
     renderUpdatedWidget(sourceWidgetId);
+    if(widgets[sourceWidgetId].type == "chart")
+    	widgets[sourceWidgetId].drawChart();
 }
 
 
 
 document.addEventListener('click', function (e) {
-  var changeTitleTemplate = _.template($('#changeTitleTemplate').html());
   var target = e.target;
   if (target.tagName && target.tagName.toLowerCase() == "a") {
   	if(target.id.includes("changeTitle")){
+  		var changeTitleTemplate = _.template($('#changeTitleTemplate').html());
   		var sourceWidgetId = findSourceWidgetId(target.id);
   		var title = document.getElementById("widget"+sourceWidgetId+"Title");
   		var titleStr= widgets[sourceWidgetId].title;
@@ -200,6 +226,16 @@ document.addEventListener('click', function (e) {
   			sourceWidgetId: sourceWidgetId
   		});
 		title.innerHTML = changeTitleHTML;
+  	}
+  	if(target.id.includes("scale_up")){
+  		var sourceWidgetId = findSourceWidgetId(target.id);
+  		widgets[sourceWidgetId].changeSize(40);
+  		widgets[sourceWidgetId].drawChart();		
+  	}
+  	if(target.id.includes("scale_down")){
+  		var sourceWidgetId = findSourceWidgetId(target.id);
+  		widgets[sourceWidgetId].changeSize(-40);
+  		widgets[sourceWidgetId].drawChart();		
   	}
   }
 });

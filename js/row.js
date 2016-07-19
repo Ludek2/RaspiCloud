@@ -9,7 +9,6 @@ var Row = Class.extend({
 	},
 
 	formHtml: function(){
-		console.log(this.id);
 		var widgetHtml = [];
 		var widgetSize = [];
 		for (var i=0; i< this.widgets.length; i++){
@@ -32,6 +31,10 @@ var Row = Class.extend({
 	renderAgain: function () {
 		var html = this.formHtml();
 		document.getElementById("row"+this.id).outerHTML = html;
+		for (var i=0; i< this.widgets.length; i++){
+        	if(this.widgets[i].type == "chart")
+        		if(this.widgets[i].printed)this.widgets[i].drawChart();
+        }
 	},
 
 	getWidgetsSizeSum: function(){
