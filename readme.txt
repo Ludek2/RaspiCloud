@@ -1,0 +1,1 @@
+Web user interface that is capable to display information in form of charts or tables. This application is going to be used for Internet of Things (IoT) data visualisation and remote control of embedded devices.
